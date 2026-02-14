@@ -108,14 +108,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prev, LPSTR cmd, int show)
     memset(&wc, 0, sizeof(wc));
     wc.lpfnWndProc = window_proc;
     wc.hInstance = hInstance;
-    wc.lpszClassName = "Minimal2DEngine";
+    wc.lpszClassName = "meteor";
     RegisterClass(&wc);
 
     /* Create window */
     hwnd = CreateWindowEx(
         0,
         wc.lpszClassName,
-        "Minimal 2D Engine",
+        "meteor",
         WS_OVERLAPPEDWINDOW | WS_VISIBLE,
         CW_USEDEFAULT, CW_USEDEFAULT,
         WINDOW_WIDTH, WINDOW_HEIGHT,
