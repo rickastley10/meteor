@@ -216,7 +216,7 @@ while (running)
     m8y=m8y+h;if(m8y==400+h){m8y=0;m8x=(rand()%20+1)*20;count=count+1;}
     m9y=m9y+h;if(m9y==400+h){m9y=0;m9x=(rand()%20+1)*20;count=count+1;}
     m10y=m10y+h;if(m10y==400+h){m10y=0;m10x=(rand()%20+1)*20;count=count+1;}
-    if(count>=10){score=score+1;count=0;Beep(750, 200);}
+    if(count>=10){score=score+1;count=0;/*Beep(750, 200);*/}
     if((px==m1x&&py==m1y)||(px==m2x&&py==m2y)||(px==m3x&&py==m3y)||(px==m4x&&py==m4y)||(px==m5x&&py==m5y)||(px==m6x&&py==m6y)||(px==m7x&&py==m7y)||(px==m8x&&py==m8y)||(px==m9x&&py==m9y)||(px==m10x&&py==m10y)){m1x=(rand()%20+1)*20,m1y=((rand()%10+1)*20);m2x=(rand()%20+1)*20,m2y=((rand()%10+1)*20);m3x=(rand()%20+1)*20,m3y=((rand()%10+1)*20);m4x=(rand()%20+1)*20,m4y=((rand()%10+1)*20);m5x=(rand()%20+1)*20,m5y=((rand()%10+1)*20);m6x=(rand()%20+1)*20,m6y=((rand()%10+1)*20);m7x=(rand()%20+1)*20,m7y=((rand()%10+1)*20);m8x=(rand()%20+1)*20,m8y=((rand()%10+1)*20);m9x=(rand()%20+1)*20,m9y=((rand()%10+1)*20);m10x=(rand()%20+1)*20,m10y=((rand()%10+1)*20);score=0;}
     
 
