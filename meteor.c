@@ -2,6 +2,9 @@
 #include <windows.h>
 #include <stdint.h>
 #include <stdlib.h>
+#include <stdio.h>      // Added for sprintf
+#include <time.h>       // Added for time()
+#include <string.h>     // Added for strlen()
 
 /* ============================================================
    CONFIG
@@ -124,117 +127,118 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prev, LPSTR cmd, int show)
 
     init_backbuffer(hwnd);
 
-srand(time(NULL));   // Seed once at program start
+    srand(time(NULL));   // Seed once at program start
 
-
-int px=200, py=300;
-/*
-400x400
-200 = center / 0
-150 = -50
-0 = -200
-400 = 200
-*/
-int m1x=(rand()%20+1)*20,m1y=((rand()%10+1)*20);
-int m2x=(rand()%20+1)*20,m2y=((rand()%10+1)*20);
-int m3x=(rand()%20+1)*20,m3y=((rand()%10+1)*20);
-int m4x=(rand()%20+1)*20,m4y=((rand()%10+1)*20);
-int m5x=(rand()%20+1)*20,m5y=((rand()%10+1)*20);
-int m6x=(rand()%20+1)*20,m6y=((rand()%10+1)*20);
-int m7x=(rand()%20+1)*20,m7y=((rand()%10+1)*20);
-int m8x=(rand()%20+1)*20,m8y=((rand()%10+1)*20);
-int m9x=(rand()%20+1)*20,m9y=((rand()%10+1)*20);
-int m10x=(rand()%20+1)*20,m10y=((rand()%10+1)*20);
-int w=20;int h=20;
-int score=0,count=0;
-    /* ============================================================
-   MAIN LOOP
-   ============================================================ */
-while (running)
-{
-    while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
-    {
-        TranslateMessage(&msg);
-        DispatchMessage(&msg);
-    }
-
-    // ===== PADDLE CONTROLS =====
-    if (GetAsyncKeyState('D') & 0x8000) {
-        if(px<400){px=px+w;}
-    }
-    if (GetAsyncKeyState('A') & 0x8000) {
-        if(px>0){px=px-w;}
-    }
-
-    /* Example draw */
-    clear_screen(0xFF87CEEB); /* light blue background */
+    int px=200, py=300;
     /*
-    red - 0xFFFF0000
-    orange - 0xFFFFA500
-    black - 0xFF000000
+    400x400
+    200 = center / 0
+    150 = -50
+    0 = -200
+    400 = 200
     */
-    /*x y w h colour*/
-    draw_rect(px, py, w, h, 0xFF000000);
-
-    draw_rect(m1x, m1y, w, h, 0xFFFFA500);
-    draw_rect(m1x, m1y - h, w, h, 0xFFFF0000);
-
-    draw_rect(m2x, m2y, w, h, 0xFFFFA500);
-    draw_rect(m2x, m2y - h, w, h, 0xFFFF0000);
-
-    draw_rect(m3x, m3y, w, h, 0xFFFFA500);
-    draw_rect(m3x, m3y - h, w, h, 0xFFFF0000);
-
-    draw_rect(m4x, m4y, w, h, 0xFFFFA500);
-    draw_rect(m4x, m4y - h, w, h, 0xFFFF0000);
-
-    draw_rect(m5x, m5y, w, h, 0xFFFFA500);
-    draw_rect(m5x, m5y - h, w, h, 0xFFFF0000);
-
-    draw_rect(m6x, m6y, w, h, 0xFFFFA500);
-    draw_rect(m6x, m6y - h, w, h, 0xFFFF0000);
-
-    draw_rect(m7x, m7y, w, h, 0xFFFFA500);
-    draw_rect(m7x, m7y - h, w, h, 0xFFFF0000);
-
-    draw_rect(m8x, m8y, w, h, 0xFFFFA500);
-    draw_rect(m8x, m8y - h, w, h, 0xFFFF0000);
-
-    draw_rect(m9x, m9y, w, h, 0xFFFFA500);
-    draw_rect(m9x, m9y - h, w, h, 0xFFFF0000);
-
-    draw_rect(m10x, m10y, w, h, 0xFFFFA500);
-    draw_rect(m10x, m10y - h, w, h, 0xFFFF0000);
-
-    m1y=m1y+h;if(m1y==400+h){m1y=0;m1x=(rand()%20+1)*20;count=count+1;}
-    m2y=m2y+h;if(m2y==400+h){m2y=0;m2x=(rand()%20+1)*20;count=count+1;}
-    m3y=m3y+h;if(m3y==400+h){m3y=0;m3x=(rand()%20+1)*20;count=count+1;}
-    m4y=m4y+h;if(m4y==400+h){m4y=0;m4x=(rand()%20+1)*20;count=count+1;}
-    m5y=m5y+h;if(m5y==400+h){m5y=0;m5x=(rand()%20+1)*20;count=count+1;}
-    m6y=m6y+h;if(m6y==400+h){m6y=0;m6x=(rand()%20+1)*20;count=count+1;}
-    m7y=m7y+h;if(m7y==400+h){m7y=0;m7x=(rand()%20+1)*20;count=count+1;}
-    m8y=m8y+h;if(m8y==400+h){m8y=0;m8x=(rand()%20+1)*20;count=count+1;}
-    m9y=m9y+h;if(m9y==400+h){m9y=0;m9x=(rand()%20+1)*20;count=count+1;}
-    m10y=m10y+h;if(m10y==400+h){m10y=0;m10x=(rand()%20+1)*20;count=count+1;}
-    if(count>=10){score=score+1;count=0;/*Beep(750, 200);*/}
-    if((px==m1x&&py==m1y)||(px==m2x&&py==m2y)||(px==m3x&&py==m3y)||(px==m4x&&py==m4y)||(px==m5x&&py==m5y)||(px==m6x&&py==m6y)||(px==m7x&&py==m7y)||(px==m8x&&py==m8y)||(px==m9x&&py==m9y)||(px==m10x&&py==m10y)){m1x=(rand()%20+1)*20,m1y=((rand()%10+1)*20);m2x=(rand()%20+1)*20,m2y=((rand()%10+1)*20);m3x=(rand()%20+1)*20,m3y=((rand()%10+1)*20);m4x=(rand()%20+1)*20,m4y=((rand()%10+1)*20);m5x=(rand()%20+1)*20,m5y=((rand()%10+1)*20);m6x=(rand()%20+1)*20,m6y=((rand()%10+1)*20);m7x=(rand()%20+1)*20,m7y=((rand()%10+1)*20);m8x=(rand()%20+1)*20,m8y=((rand()%10+1)*20);m9x=(rand()%20+1)*20,m9y=((rand()%10+1)*20);m10x=(rand()%20+1)*20,m10y=((rand()%10+1)*20);score=0;}
+    int m1x=(rand()%20+1)*20,m1y=((rand()%10+1)*20);
+    int m2x=(rand()%20+1)*20,m2y=((rand()%10+1)*20);
+    int m3x=(rand()%20+1)*20,m3y=((rand()%10+1)*20);
+    int m4x=(rand()%20+1)*20,m4y=((rand()%10+1)*20);
+    int m5x=(rand()%20+1)*20,m5y=((rand()%10+1)*20);
+    int m6x=(rand()%20+1)*20,m6y=((rand()%10+1)*20);
+    int m7x=(rand()%20+1)*20,m7y=((rand()%10+1)*20);
+    int m8x=(rand()%20+1)*20,m8y=((rand()%10+1)*20);
+    int m9x=(rand()%20+1)*20,m9y=((rand()%10+1)*20);
+    int m10x=(rand()%20+1)*20,m10y=((rand()%10+1)*20);
+    int w=20;int h=20;
+    int score=0,count=0;
     
+    /* ============================================================
+       MAIN LOOP
+       ============================================================ */
+    while (running)
+    {
+        while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+        {
+            TranslateMessage(&msg);
+            DispatchMessage(&msg);
+        }
 
+        // ===== PADDLE CONTROLS =====
+        if (GetAsyncKeyState('D') & 0x8000) {
+            if(px<380){px=px+w;}  // Changed from 400 to 380 to keep paddle on screen
+        }
+        if (GetAsyncKeyState('A') & 0x8000) {
+            if(px>0){px=px-w;}
+        }
 
+        /* Example draw */
+        clear_screen(0xFF87CEEB); /* light blue background */
+        /*
+        red - 0xFFFF0000
+        orange - 0xFFFFA500
+        black - 0xFF000000
+        */
+        /*x y w h colour*/
+        draw_rect(px, py, w, h, 0xFF000000);
 
-    char buf[32];
-    sprintf(buf, "Score: %d", score);
-    SetTextColor(backbuffer_dc, 0xFF000000);  // black text
-    SetBkMode(backbuffer_dc, TRANSPARENT);    // don't draw a background box
-    TextOut(backbuffer_dc, 10, 10, buf, strlen(buf));
-    /* Flip backbuffer */
-    window_dc = GetDC(hwnd);
-    BitBlt(window_dc, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, backbuffer_dc, 0, 0, SRCCOPY);
-    ReleaseDC(hwnd, window_dc);
+        draw_rect(m1x, m1y, w, h, 0xFFFFA500);
+        draw_rect(m1x, m1y - h, w, h, 0xFFFF0000);
 
-    Sleep(100); // 16ms ~ 60 FPS
-}
+        draw_rect(m2x, m2y, w, h, 0xFFFFA500);
+        draw_rect(m2x, m2y - h, w, h, 0xFFFF0000);
 
+        draw_rect(m3x, m3y, w, h, 0xFFFFA500);
+        draw_rect(m3x, m3y - h, w, h, 0xFFFF0000);
+
+        draw_rect(m4x, m4y, w, h, 0xFFFFA500);
+        draw_rect(m4x, m4y - h, w, h, 0xFFFF0000);
+
+        draw_rect(m5x, m5y, w, h, 0xFFFFA500);
+        draw_rect(m5x, m5y - h, w, h, 0xFFFF0000);
+
+        draw_rect(m6x, m6y, w, h, 0xFFFFA500);
+        draw_rect(m6x, m6y - h, w, h, 0xFFFF0000);
+
+        draw_rect(m7x, m7y, w, h, 0xFFFFA500);
+        draw_rect(m7x, m7y - h, w, h, 0xFFFF0000);
+
+        draw_rect(m8x, m8y, w, h, 0xFFFFA500);
+        draw_rect(m8x, m8y - h, w, h, 0xFFFF0000);
+
+        draw_rect(m9x, m9y, w, h, 0xFFFFA500);
+        draw_rect(m9x, m9y - h, w, h, 0xFFFF0000);
+
+        draw_rect(m10x, m10y, w, h, 0xFFFFA500);
+        draw_rect(m10x, m10y - h, w, h, 0xFFFF0000);
+
+        m1y=m1y+h;if(m1y==400+h){m1y=0;m1x=(rand()%20+1)*20;count=count+1;}
+        m2y=m2y+h;if(m2y==400+h){m2y=0;m2x=(rand()%20+1)*20;count=count+1;}
+        m3y=m3y+h;if(m3y==400+h){m3y=0;m3x=(rand()%20+1)*20;count=count+1;}
+        m4y=m4y+h;if(m4y==400+h){m4y=0;m4x=(rand()%20+1)*20;count=count+1;}
+        m5y=m5y+h;if(m5y==400+h){m5y=0;m5x=(rand()%20+1)*20;count=count+1;}
+        m6y=m6y+h;if(m6y==400+h){m6y=0;m6x=(rand()%20+1)*20;count=count+1;}
+        m7y=m7y+h;if(m7y==400+h){m7y=0;m7x=(rand()%20+1)*20;count=count+1;}
+        m8y=m8y+h;if(m8y==400+h){m8y=0;m8x=(rand()%20+1)*20;count=count+1;}
+        m9y=m9y+h;if(m9y==400+h){m9y=0;m9x=(rand()%20+1)*20;count=count+1;}
+        m10y=m10y+h;if(m10y==400+h){m10y=0;m10x=(rand()%20+1)*20;count=count+1;}
+        if(count>=10){score=score+1;count=0;/*Beep(750, 200);*/}
+        if((px==m1x&&py==m1y)||(px==m2x&&py==m2y)||(px==m3x&&py==m3y)||(px==m4x&&py==m4y)||(px==m5x&&py==m5y)||(px==m6x&&py==m6y)||(px==m7x&&py==m7y)||(px==m8x&&py==m8y)||(px==m9x&&py==m9y)||(px==m10x&&py==m10y)){m1x=(rand()%20+1)*20,m1y=((rand()%10+1)*20);m2x=(rand()%20+1)*20,m2y=((rand()%10+1)*20);m3x=(rand()%20+1)*20,m3y=((rand()%10+1)*20);m4x=(rand()%20+1)*20,m4y=((rand()%10+1)*20);m5x=(rand()%20+1)*20,m5y=((rand()%10+1)*20);m6x=(rand()%20+1)*20,m6y=((rand()%10+1)*20);m7x=(rand()%20+1)*20,m7y=((rand()%10+1)*20);m8x=(rand()%20+1)*20,m8y=((rand()%10+1)*20);m9x=(rand()%20+1)*20,m9y=((rand()%10+1)*20);m10x=(rand()%20+1)*20,m10y=((rand()%10+1)*20);score=0;}
+
+        char buf[32];
+        sprintf(buf, "Score: %d", score);
+        SetTextColor(backbuffer_dc, 0x00000000);  // black text (note: Windows uses 0x00BBGGRR format)
+        SetBkMode(backbuffer_dc, TRANSPARENT);    // don't draw a background box
+        TextOutA(backbuffer_dc, 10, 10, buf, strlen(buf));  // Using TextOutA explicitly
+
+        /* Flip backbuffer */
+        window_dc = GetDC(hwnd);
+        BitBlt(window_dc, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, backbuffer_dc, 0, 0, SRCCOPY);
+        ReleaseDC(hwnd, window_dc);
+
+        Sleep(100); // 100ms ~ 10 FPS (changed comment to match actual value)
+    }
+
+    // Cleanup
+    DeleteDC(backbuffer_dc);
+    DeleteObject(backbuffer_bitmap);
 
     return 0;
 }
